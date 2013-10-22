@@ -3,6 +3,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{url}
 \author{Christopher C. Lamb}
 \title{Reference Generator}
 \begin{document}
@@ -13,11 +14,14 @@
 
 \paragraph{NOX: towards an operating system for networks.}  Gude et. al. in 2008 presented an ambitious idea to help control sprawling network architectures.  Their original idea, embodied in the {\sl NOX} system still in wide use today, was to develop an operating system of sorts for communication networks.  NOX provides an abstraction for managing networks through which users no longer needed to use lower level mechanisms to control networks, increasing the level of management abstraction \cite{GuKoPePf:08}.
 
-\paragraph{Exploiting Locality in Distributed SDN Control} Schmid et. al. outlined a formal graph theoretical approach to how network designers can incorporate local algorithms in distributed networks efficiently.  They show that while many optimization problems are easily solvable via global controllers, other non-functional requirements impose demands that can only be resolved via multiple controller schemes. They then show how link assignment and spanning tree verification can be efficiently implemented computationally by relaxing optimality requirements and accepting near-optimal solutions and implementing proof-carrying packets, respectively \cite{ScSu:13}.
+\paragraph{Exploiting Locality in Distributed SDN Control.} Schmid et. al. outlined a formal graph theoretical approach to how network designers can incorporate local algorithms in distributed networks efficiently.  They show that while many optimization problems are easily solvable via global controllers, other non-functional requirements impose demands that can only be resolved via multiple controller schemes. They then show how link assignment and spanning tree verification can be efficiently implemented computationally by relaxing optimality requirements and accepting near-optimal solutions and implementing proof-carrying packets, respectively\cite{ScSu:13}.  
 
-\paragraph{The Controller Placement Problem}
+The larger question implied is how specifically SDNs should be designed with this in mind, and how the inarguable locality Schmid identifies enhances SDN value overall.
 
-\cite{HeShMc:12}
+\paragraph{The Controller Placement Problem.}
+In 2012 Heller et. al. examined optimal controller placement and redundancy in modern large-scale networks. They used topologies from the Internet2~\cite{internet2} project as well as the internet topology zoo~\cite{internet-topo-zoo}. Using average and worst case optimization approaches, Heller established a property of diminishing returns with respect to the number of deployed controllers, though the specific effects of controller placement on performance varies widely based on the specific network in question.  Interestingly, given specific network performance overheads, a single controller seems to meet the performance demands of most topologies\cite{HeShMc:12}. 
+
+This rigorous work applies directly to performance optimization over WANs, but does not address other potential optimization metrics like security.  Furthermore, this analysis does not analyze other more potentially complex and smaller topologies.  WAN topologies like those examined in this paper must handle large traffic loads very quickly.  Other types of networks may have other demands.
 
 \paragraph{Kandoo: a framework for efficient and scalable offloading of control applications}
 
