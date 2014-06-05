@@ -1,0 +1,31 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{wrapfig}
+\usepackage[draft,margin]{fixme}
+\fxsetup{theme=color}
+\usepackage{fullpage}
+\usepackage[backend=bibtex,style=ieee]{biblatex}
+\addbibresource{bib/reading.bib}
+\title{Cyber-Resiliency Readings and Summaries}
+\author{}
+\begin{document}
+\maketitle
+\paragraph{Resilience - The Challenge of the Unstable.} In this article, Hollnagel presents three common models for accident causation.  The first, the Linear Accident Model, assumes accidents occur based on a series of unfortunate events, not unlike a group of dominoes falling together in a sequence, where each domino causes the next to fall. The second, the Complex Linear Accident Model, describes accidents as arising from a chance juxtaposition of events, similar to the alignment of paper in a three ring binder required for the binder to close.  Finally, Hollnagel describes a Systemic Accident Models, in which both normal performance and failures are emergent phenomena of the system, and do not correlate well to linear descriptions like fault trees.  Rather, they occur from as a result of unrelated {\sl concurrences} which, together, can lead to unfortunate system behaviors.  Hollnagel further goes to claim that systems must be {\sl dynamically} stable, as it is impossible to design or build the appropriate adjustments into systems for each possible scenario due to overwhelming system complexity~\cite{Ho:04}.  As such, {\sl dampened} systems show promise as a potential system development path.~\cite{Ho:06}
+
+Though a good read and introduction, overall this particular paper has very little technical depth to analyze.  That said, it does present some interesting areas of potential research in it's claims.  Specifically, the claim that modern systems and concurrences are too complex to anticipate, though certainly intuitive, could use a more thorough treatment.
+
+\paragraph{Essential Characteristics of Resilience.} Woods starts by differentiating {\sl adaptability}, or the characteristic of a system to change to handle expected disruptions, from {\sl resilience}, which he defines as the ability to handle unexpected and unforseen disruptions.  Resilience then deals with a system's ability to handle unanticipated events outside of the system's model that can only be addressed by unplanned resource shifting.  This type of adaptation failure is known as a {\sl failure of the third kind}~\footnote{Ian Mitroff coined this term in 1974.}.
+
+~\cite{Wo:06}
+
+\paragraph{Functional Resonance Accident Models.}
+
+~\cite{Ho:04}
+
+\printbibliography
+
+\end{document}
