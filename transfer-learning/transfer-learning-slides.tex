@@ -1,0 +1,210 @@
+%\documentclass[t,10pt]{beamer}
+\documentclass[t,handout]{beamer}
+
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{psfrag}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{color}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{calc,shapes,backgrounds}
+
+% Font settings:
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\usepackage{fourier}
+\usepackage{microtype}
+
+%Mathematics packages
+\usepackage{amsmath}
+\usepackage{mathrsfs}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+
+\usepackage[backend=bibtex,style=ieee]{biblatex}
+\addbibresource{transfer-learning.bib}
+
+\graphicspath{{./images/}} % Figures path - used in graphicx
+
+\selectcolormodel{cmyk}
+
+\mode<presentation>
+
+%THEMES - Please refer to these chapters in the beamer documentation.
+% Presentation themes : Chapter 15
+% Color themes : Chapter 17
+% Font themes : Chapter 18
+\usetheme{Pittsburgh}
+\usecolortheme{orchid}
+\usefonttheme{default}
+
+\setbeamertemplate{bibliography item}[text]
+\setbeamercovered{transparent=7}
+%---------------------------Title frame definition------------------------------------- 
+
+\title{Information Protection in Content-centric Networks}
+\author [Chris]{Christopher C. Lamb}
+\institute[University of New Mexico]{
+\inst {}Department of Electrical and Computer Engineering\\
+University of New Mexico}
+\date{November 6, 2012}
+
+%\titlegraphic{
+%\begin{figure} 
+%\includegraphics[width = 7cm]{UNM}
+%\end{figure}}
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSubsection[]
+%{
+%  \begin{frame}<beamer>
+%    \frametitle{Outline}
+%     \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+\begin{document}
+
+%\begin{frame}
+%\titlepage
+%\end{frame}
+
+% This command will make the logo appear on all frames excluding the title frame.
+% \logo {\includegraphics[width = 2.5cm]{UNM}}
+
+\begin{frame}
+\frametitle{Transfer Learning Taxonomy}
+\tikzset{
+  head/.style = {fill = orange!90!blue},
+  transductive/.style = {fill = yellow}
+}
+\begin{tikzpicture}[
+    scale = 1.5, transform shape, thick,
+    every node/.style = {draw, rectangle, rounded corners, minimum size = 10mm},
+    grow = down,  % alignment of characters
+    level 1/.style = {sibling distance=3cm},
+    level 2/.style = {sibling distance=4cm}, 
+    every text node part/.style={align=center},
+    level distance = 3.25cm
+  ]
+  
+  \node[head] (Start) {Transfer Learning \\ \tiny{$D_{s} \ne D_{t}$}} {
+  	child { node [head] (Inductive) {\tiny{Inductive}} }
+  	child { node [transductive] (Transductive) {\tiny{Transductive}} }
+  	child { node [head] (Unsupervised) {\tiny{Unsupervised}} }
+  };
+  
+  
+%  \node[fill = gray!40, 
+%  	shape = rectangle, rounded corners,
+%    minimum width = 6cm, 
+%    font = \sffamily] {Coin flipping} 
+%    
+%  	child { node
+%  			[	shape = circle split, 
+%  				draw, line width = 1pt,
+%          		minimum size = 10mm, 
+%          		inner sep = 0mm, 
+%          		font = \sffamily\large,
+%          		rotate=30
+%          	] (Start) { \rotatebox{-30}{H} \nodepart{lower} \rotatebox{-30}{T}}
+%          	
+%   	child { node [head] (A) {} }
+%   	
+%   	child { node [tail] (B) {} }
+%  };
+
+  % Filling the root (Start)
+  \begin{scope}[on background layer, rotate=30]
+    \fill[head] (Start.base) ([xshift = 0mm]Start.east) arc (0:180:5mm)
+      -- cycle;
+%    \fill[tail] (Start.base) ([xshift = 0pt]Start.west) arc (180:360:5mm)
+%      -- cycle;
+  \end{scope}
+%
+%  % Labels
+  \begin{scope}[nodes = {draw = none}]
+    \path (Start) -- (Inductive) node [near start, left]  {\tiny{$\exists \lambda(D_{t}), T_{s} \ne T_{t}$}};
+    \path (Start) -- (Transductive) node [near start, right, pos=0.8] {\tiny{$\exists d_{t} \Subset D_{t}, T_{s} = T_{t}$}};
+    \path (Start) -- (Unsupervised) node [near start, right] {\tiny{$\neg\exists\lambda(D_{s}), \neg\exists\lambda(D_{t}), T_{s} \ne T_{t}$}};
+%
+%    \begin{scope}[nodes = {below = 11pt}]
+%      \node [name = X] at (B) {$0.25$};
+%      \node            at (C) {$0.25$};
+%      \node [name = Y] at (E) {$0.25$};
+%      \node            at (F) {$0.25$};
+%    \end{scope}
+%    \draw[densely dashed, rounded corners, thin]
+%      (X.south west) rectangle (Y.north east);
+  \end{scope}
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+\frametitle{Transductive Work}
+Source and target tasks are the same but the domains are different
+\begin{itemize}
+\item Recognizing spoiled pears after training on apples
+\item Classifying letters after training on numbers
+\end{itemize}
+\textbf{This is not exactly what we do; we are reusing elements of $T_{s}$ in $T_{t}$, but not the entire task (which would be the entire network with no change).}
+~\\
+\begin{columns}
+\column{.5\textwidth}
+\footnotesize{
+\begin{itemize}
+\item \textit{Arnold}; entropy-based IFT; as fast as SVM, not as adaptable
+\item \textit{Joachims}; TSVMs, better performance, especially on small sets
+\item \textit{Huang}; non-parametric weight re-sampling between $D_{s}$ and $D_{t}$
+\end{itemize}
+}
+
+\column{.5\textwidth}
+\footnotesize{
+\begin{itemize}
+\item \textit{Sugiyama}; non-density estimation based shift management, better performance
+\item \textit{Bickel}; Kernel LR classifier with no modeling
+\item \textit{Dai}; Naive Bayes, good performance, revising model
+\end{itemize}
+}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Transductive Work}
+\begin{columns}
+\column{.5\textwidth}
+\footnotesize{
+\begin{itemize}
+\item \textit{Blitzer}; SCL Algorithm, feature extraction from $D_{t}$; uses pivots, which require domain expertise; may be able to use mutual information for selection though (MI-SCL)
+\item \textit{Daum\'{e}}; Kernel mapping NLP into high-dimensional feature space; train classifiers here; kernel function is domain driven
+\item \textit{Dai}; co-clustering, good classification performance
+\item \textit{Xing}; bridged refinement uses a mixture of training and test data to bridge a classifier from $D_{s} \rightarrow D_{t}$
+\end{itemize}
+}
+
+\column{.5\textwidth}
+\footnotesize{
+\begin{itemize}
+\item \textit{Ling}; Spectral classifier objective function seeks consistency between $D_{s}$ and $D_{t}$
+\item \textit{Xue}; Text classifier extends PLSA integrating labeled and unlabeled data from different domains
+\item \textit{Pan}; uses MMDE in low-dimensional spaces, but computationally intense 
+\item \textit{Pan}; TCA works in same domain as MMDE but better claimed performance
+\end{itemize}
+}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{More Neurally Focused}
+
+\end{frame}
+
+\end{document}
