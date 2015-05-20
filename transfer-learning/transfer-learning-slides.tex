@@ -178,7 +178,9 @@ Source and target tasks are the same but the domains are different
 
 \begin{frame}
 \frametitle{Transductive Work}
+
 \begin{columns}
+
 \column{.5\textwidth}
 \footnotesize{
 \begin{itemize}
@@ -200,11 +202,56 @@ Source and target tasks are the same but the domains are different
 }
 
 \end{columns}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{More Neurally Focused}
+\begin{columns}
 
+\column{.5\textwidth}
+\footnotesize{
+\begin{itemize}
+\item \textit{Hubel}; multi-starge Hubel-Wiesel architectures, alternating layers of convolutions and max pooling with multiple tasks, which embody transfer learning
+\item \textit{Huang}; extended Hubel's work by sharing hidden layers, improving recognition accuracy of new languages against fresh DNNs; this extends across language families as well
+\item \textit{Cire\c{s}an}; Pretraining on chinese characters yields much shorter training times for latin character recognition in an entire network
+\end{itemize}
+}
+
+\column{.5\textwidth}
+\footnotesize{
+\begin{itemize}
+\item \textit{Collobert}; A single convolutional network trained jointly on all tasks using weight sharing (); semi-supervised learning as well (note: this is an inductive learner as we have multiple tasks). 
+\item \textit{Kandaswamy}; They transfer features from various layers; I believe they are transferring entire layer parameters here.
+\item \textit{Swietojanski}; Hybrid machines (RBMs); used in tandem as features for a hidden Markov model. Unsupervised pre-training importnant, and can be language-independent.
+\end{itemize}
+}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{More Neurally Focused}
+\begin{columns}
+
+\column{.5\textwidth}
+\footnotesize{
+\begin{itemize}
+\item \textit{Yosinski};  reusing entire high-level layers to increase DNN performance; transferring any features better than none at all
+\item \textit{Morelli}; essentially retraining new classifiers here over time as well.
+\end{itemize}
+}
+
+\column{.5\textwidth}
+\footnotesize{
+\begin{itemize}
+\item \textit{Calandra}; constant re-training of established DNN; essentially, they dynamically create NN on the fly as new data appears. They do not use apoptosis, they depend on wieght shifts as new data appears in freshly trained systems.
+\end{itemize}
+}
+
+\end{columns}
+~\\~\\
+\textbf{Overall, neurogenesis is not being examined at this point. Researchers seem to prefer horizontal reuse over vertical adaptation.}
 \end{frame}
 
 \end{document}
